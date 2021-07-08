@@ -1,0 +1,105 @@
+$board = [
+[1], [2], [3], 
+[4], [5], [6], 
+[7], [8], [9]]
+
+def threeInARow(spot1, spot2, spot3) 
+
+  if $board[spot1] == spot1.to_s
+    return nil
+  end
+  
+  if $board[spot1] == $board[spot2] && $board[spot1] == $board[spot3] 
+    return $board[spot1]
+  end
+end
+
+
+def getwinner() 
+  winner = threeInARow(0,1,2)
+  if winner == "[X]" || winner == "[O]" 
+    return winner
+  end
+  winner = threeInARow(3,4,5)
+  if winner == "[X]" || winner == "[O]" 
+    return winner
+  end
+  winner = threeInARow(6,7,8)
+  if winner == "[X]" || winner == "[O]" 
+    return winner
+  end
+  
+  winner = threeInARow(0,3,6)
+  if winner == "[X]" || winner == "[O]" 
+    return winner
+  end
+  winner = threeInARow(2,5,8)
+  if winner == "[X]" || winner == "[O]" 
+    return winner
+  end
+  winner = threeInARow(1,4,7)
+  if winner == "[X]" || winner == "[O]" 
+    return winner
+  end
+  winner = threeInARow(0,4,8)
+  if winner == "[X]" || winner == "[O]" 
+    return winner
+  end
+  winner = threeInARow(2,4,6)
+  if winner == "[X]" || winner == "[O]" 
+    return winner
+  end
+  
+  return nil
+end
+
+def printboard() 
+  puts
+  print($board[0])
+  print($board[1])
+  p($board[2])
+  print($board[3])
+  print($board[4])
+  p($board[5])
+  print($board[6])
+  print($board[7])
+  print($board[8])
+  puts
+  
+end
+player = "X"
+count = 0
+
+while getwinner() == nil && count < 9 
+  count = count + 1
+  print ("player " + player + " turn")
+  printboard()
+  print "choose a position (1-9): "
+  choice = gets.chomp
+  choice = choice.to_i
+  choice = choice - 1
+  while $board[choice] == "[X]" || $board[choice] == "[O]" 
+    print "Spot already taken Choose another position: "
+    choice = gets.chomp
+	choice = choice.to_i
+	choice = choice - 1
+  end
+
+  
+  $board[choice] = "[" + player + "]"
+  
+  if player == "X" 
+    player = "O"
+  else
+    player = "X"
+  end
+end
+
+printboard()
+if getwinner() != nil 
+  print ("Player" + getwinner() + " wins!")
+else
+  puts("Draw game.")
+end
+
+
